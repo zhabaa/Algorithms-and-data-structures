@@ -1,0 +1,8 @@
+__pycache__
+lab12/
+build/
+lab13-14/
+output/
+
+CMakeLists.txt
+README.md
