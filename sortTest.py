@@ -35,8 +35,9 @@ class SortingTester:
 
         return average_time, sorted_result
     
-    def check_sort_algorithm(self, sorted_array):
-        pass
+    def is_sorted(self, arr: List[int]) -> bool:
+        return all(arr[i] <= arr[i + 1] for i in range(len(arr) - 1))
+
 
     def test_sorting_algorithm(self, sort_function, number_of_different_arrays=5, runs_per_array=3) -> dict:
         test_results = {
@@ -54,10 +55,14 @@ class SortingTester:
 
         for array_index in range(number_of_different_arrays):
             current_test_array = self.generate_random_array()
-            average_time_for_array, _ = self.measure_sorting_time(
+            average_time_for_array, sorted_array = self.measure_sorting_time(
                 sort_function, current_test_array, runs_per_array
             )
+            
+            if not self.is_sorted(sorted_array):
+                print(f"Алгоритм {sort_function.__name__} не отсортировал массив правильно")
 
+            
             test_results["execution_times_per_array"].append(average_time_for_array)
 
         test_results["average_execution_time"] = statistics.mean(test_results["execution_times_per_array"])
@@ -108,15 +113,15 @@ if __name__ == "__main__":
     from lab10 import merge_sort
     from lab11 import quick_sort
 
-    tester = SortingTester(array_size=10 ** 6, min_val=0, max_val=100_000)
+    tester = SortingTester(array_size=10 ** 6, min_val=-1000, max_val=1000)
     algorithms_to_test = [
-        comb_sort,
+        # comb_sort,
         # insertion_sort,
         # selection_sort,
-        shell_sort,
-        radix_sort,
-        heap_sort,
-        merge_sort,
+        # shell_sort,
+        # radix_sort,
+        # heap_sort,
+        # merge_sort,
         quick_sort,
     ]
 
@@ -125,66 +130,3 @@ if __name__ == "__main__":
     )
 
     tester.display_comparison_results(test_results)
-
-"""
-array sizes: 10000
-arrays amount: 3
-one array runs: 1
-
-testing comb_sort...
-testing insertion_sort...
-testing selection_sort...
-testing shell_sort...
-testing radix_sort...
-testing heap_sort...
-testing merge_sort...
-testing quick_sort...
-
-1. comb_sort:
-   avg: 0.041238
-   min: 0.018182
-   max: 0.063317
-   arrays time: ['0.018182', '0.042216', '0.063317']
-
-2. radix_sort:
-   avg: 0.085199
-   min: 0.071622
-   max: 0.106959
-   arrays time: ['0.106959', '0.071622', '0.077017']
-
-3. quick_sort:
-   avg: 0.311167
-   min: 0.298532
-   max: 0.335388
-   arrays time: ['0.299580', '0.298532', '0.335388']
-
-4. shell_sort:
-   avg: 0.326509
-   min: 0.293488
-   max: 0.375958
-   arrays time: ['0.293488', '0.310080', '0.375958']
-
-5. merge_sort:
-   avg: 0.388638
-   min: 0.346979
-   max: 0.426027
-   arrays time: ['0.346979', '0.392909', '0.426027']
-
-6. heap_sort:
-   avg: 0.511170
-   min: 0.429988
-   max: 0.555968
-   arrays time: ['0.429988', '0.547554', '0.555968']
-
-7. insertion_sort:
-   avg: 40.377264
-   min: 25.068294
-   max: 56.807412
-   arrays time: ['25.068294', '39.256086', '56.807412']
-
-8. selection_sort:
-   avg: 87.239338
-   min: 65.853098
-   max: 109.540150
-   arrays time: ['65.853098', '86.324768', '109.540150']
-"""

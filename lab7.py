@@ -3,7 +3,7 @@ def shell_sort(arr) -> list[int]:
     step = len(arr) // 2
 
     while step > 0:
-        for i in range(step, last_index, 1):
+        for i in range(step, last_index):
             j = i
             delta = j - step
 

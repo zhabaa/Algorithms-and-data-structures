@@ -1,4 +1,4 @@
-def generate_numbers(x: int):
+def foo(x: int):
     result = []
     i = 1
 
@@ -27,9 +27,9 @@ def generate_numbers(x: int):
 
 if __name__ == "__main__":
     x = int(input("Введите x: "))
-    numbers = generate_numbers(x)
+    numbers = foo(x)
 
     print("Числа от 1 до x вида 3^K * 5^L * 7^M:")
 
     for num in numbers:
-        print(num)
+        print(num, end=' ')

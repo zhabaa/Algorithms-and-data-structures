@@ -1,14 +1,10 @@
-class MyError(Exception):
-    pass
-
-
 class ExpressionEvaluator:
     def __init__(self, expr: str):
         self.expr = expr.strip()
 
     def validate_equal(self):
         if not self.expr.endswith("="):
-            raise MyError("Expression must end with '='")
+            raise Exception("Expression must end with '='")
 
         self.expr = expr.strip()[:-1]
 
@@ -21,16 +17,16 @@ class ExpressionEvaluator:
 
             elif char == ")":
                 if not stack:
-                    raise MyError("Close parentheses excess")
+                    raise Exception("Close parentheses excess")
 
                 stack.pop()
 
         if stack:
-            raise MyError("Close parentheses missing")
+            raise Exception("Close parentheses missing")
 
     def validate_zero_division(self):
         if "/0" in expr.replace(" ", ""):
-            raise MyError("Zero division")
+            raise Exception("Zero division")
 
     def check_expression(self):
         self.validate_equal()
@@ -78,7 +74,7 @@ class ExpressionEvaluator:
                     continue
 
                 else:
-                    raise MyError(f"Unsopported symbol: {char}")
+                    raise Exception(f"Unsopported symbol: {char}")
 
         if number:
             output.append(number)
@@ -104,13 +100,13 @@ class ExpressionEvaluator:
                         "+": a + b,
                         "-": a - b,
                         "*": a * b,
-                        "/": a / b if b != 0 else MyError("Zero division"),
+                        "/": a / b if b != 0 else Exception("Zero division"),
                     }
 
                     stack.append(res[token])
 
                 except KeyError:
-                    raise MyError(f"Unsopported symbol: {token}")
+                    raise Exception(f"Unsopported symbol: {token}")
 
         return stack[0]
 
@@ -128,5 +124,5 @@ if __name__ == "__main__":
         result = eval.evaluate()
         print("Result:", result)
 
-    except MyError as e:
+    except Exception as e:
         print("Error:", e)

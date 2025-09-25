@@ -2,27 +2,30 @@
 Quick sort
 """
 
-
-def partition(arr, low, high):
-    pivot = arr[high]
-    i = low - 1
-
-    for j in range(low, high):
-        if arr[j] <= pivot:
-            i = i + 1
-            arr[i], arr[j] = arr[j], arr[i]
-
-    arr[i + 1], arr[high] = arr[high], arr[i + 1]
-    return i + 1
-
-
-def _quick_sort(arr, low, high):
-    if low < high:
-        pivot = partition(arr, low, high)
-        _quick_sort(arr, low, pivot - 1)
-        _quick_sort(arr, pivot + 1, high)
+import random
 
 
 def quick_sort(arr):
-    _quick_sort(arr, 0, len(arr) - 1)
-    return arr
+    n = len(arr)
+
+    if n <= 1:
+        return arr
+    elif n == 2:
+        if arr[0] > arr[1]:
+            arr[0], arr[1] = arr[1], arr[0]
+        return arr
+
+    sup = random.randint(0, n - 1)
+    left = []
+    mid = []
+    right = []
+
+    for i in range(n):
+        if arr[i] < arr[sup]:
+            left.append(arr[i])
+        elif arr[i] == arr[sup]:
+            mid.append(arr[i])
+        else:
+            right.append(arr[i])
+
+    return quick_sort(left) + mid + quick_sort(right)

@@ -9,7 +9,7 @@ def radix_sort(arr, base=10):
 
     for i in range(0, max_digits):
         for x in arr:
-            digit = (x // base**i) % base
+            digit = (x // base ** i) % base
             bins[digit].append(x)
 
         arr = list()
