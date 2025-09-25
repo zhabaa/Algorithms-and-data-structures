@@ -34,4 +34,4 @@ def save_table(filename, table):
 if __name__ == "__main__":
     words = read_words("lab13-14/input1.txt")
     table = hash_table_chaining(words, size=20)
-    save_table("output.txt", table)
+    save_table("output/output.txt", table)
