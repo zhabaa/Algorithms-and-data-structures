@@ -1,32 +1,8 @@
 class FiniteAutomatonSearch:
-    def __init__(self):  # Детерминированный конечный автомат
+    def __init__(self) -> None:
         pass
 
     def build_transition_table(self, pattern: str, 
-                               alphabet: set[str]) -> list[dict[str, int]]:
-        m = len(pattern)
-
-        transition_table: list[dict[str, int]] = [{} for _ in range(m + 1)]
-
-        for state in range(m + 1):
-            for char in alphabet:
-                if state < m and char == pattern[state]:
-                    next_state = state + 1
-
-                else:
-                    prefix = pattern[:state] + char
-                    next_state = 0
-
-                    for k in range(min(state + 1, m), 0, -1):
-                        if pattern[:k] == prefix[-(k):]:
-                            next_state = k
-                            break
-
-                transition_table[state][char] = next_state
-
-        return transition_table
-
-    def build_transition_table_optimized(self, pattern: str, 
                                          alphabet: set[str]) -> list[dict[str, int]]:
         m = len(pattern)
 
@@ -64,7 +40,7 @@ class FiniteAutomatonSearch:
             return []
 
         alphabet = set(text) | set(pattern)
-        transition_table = self.build_transition_table_optimized(pattern, alphabet)
+        transition_table = self.build_transition_table(pattern, alphabet)
 
         m = len(pattern)
         current_state = 0
