@@ -23,22 +23,14 @@ def egg_drop_dp(eggs: int, floors: int) -> Tuple[int, List[List[int]]]:
     return dp[eggs][floors], dp
 
 def strategy_two_eggs_100() -> List[int]:
-    """
-    Оптимальная известная стратегия для 2 яиц, 100 этажей:
-    шаги 14,13,12,... пока не покроем 100.
-    Возвращает этажи, с которых бросаем первое яйцо.
-    """
     floors = 100
-    step = 1
-    # найдем минимальный t: t+(t-1)+...+1 >= floors
     t = 0
     s = 0
     while s < floors:
         t += 1
         s += t
 
-    # теперь делаем прыжки t, t-1, ... , 1
-    throws = []
+    throws: list[int] = []
     cur = 0
     for k in range(t, 0, -1):
         cur += k
