@@ -1,4 +1,4 @@
-def knapsack(weights: list[int], values: list[int], W: int):
+def backpack(weights: list[int], values: list[int], W: int):
     n = len(weights)
     dp = [[0] * (W + 1) for _ in range(n + 1)]
     
@@ -16,4 +16,4 @@ weights = [2, 3, 4, 5]
 values = [3, 4, 5, 6]
 W = 5
 
-print(knapsack(weights, values, W))
+print(backpack(weights, values, W))
